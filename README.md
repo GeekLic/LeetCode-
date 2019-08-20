@@ -193,3 +193,39 @@ class Solution(object):
                 dp[i][k][1] = max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i])
         return dp[n-1][K][0]
 ```
+### Task13：
+* 思路：通过递归找出结点的是同时在左或者同时在右，如果一左一右则父节点已经找到。
+* 代码：
+```python
+"""
+给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+"""
+# Definition for a binary tree node.
+
+
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        parent_val = root.val
+        p_val = p.val
+        q_val = q.val
+        if p_val > parent_val and q_val > parent_val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        elif p_val < parent_val and q_val < parent_val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        else:
+            return root
+        
+```
